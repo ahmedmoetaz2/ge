@@ -1,14 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.EventFormController"
+      prefWidth="600" prefHeight="500" spacing="10" style="-fx-padding: 20; -fx-background-color: #f4f4f4;">
+    <Label text="Formulaire d'événement" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
 
-</AnchorPane>
+    <!-- Nom de l'événement -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Nom :" />
+        <TextField fx:id="nameField" promptText="Entrez le nom de l'événement" prefWidth="400" />
+    </HBox>
+
+    <!-- Catégorie -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Catégorie :" />
+        <TextField fx:id="categoryField" promptText="Entrez la catégorie" prefWidth="400" />
+    </HBox>
+
+    <!-- Description -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Description :" />
+        <TextArea fx:id="descriptionField" promptText="Entrez la description" prefWidth="400" prefHeight="80" wrapText="true" />
+    </HBox>
+
+    <!-- Prix -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Prix :" />
+        <TextField fx:id="priceField" promptText="Entrez le prix" prefWidth="400" />
+    </HBox>
+
+    <!-- Workshops disponibles -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Workshops disponibles :" />
+        <TextField fx:id="workshopsField" promptText="Entrez les workshops disponibles" prefWidth="400" />
+    </HBox>
+
+    <!-- Nombre de workshops -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Nombre de workshops :" />
+        <TextField fx:id="nbWorkshopsField" promptText="Entrez le nombre de workshops" prefWidth="400" />
+    </HBox>
+
+    <!-- Date de début -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Date de début :" />
+        <DatePicker fx:id="dateDField" prefWidth="400" />
+    </HBox>
+
+    <!-- Date de fin -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Date de fin :" />
+        <DatePicker fx:id="dateFField" prefWidth="400" />
+    </HBox>
+
+    <!-- Lieu ID -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="ID du lieu :" />
+        <TextField fx:id="lieuIdField" promptText="Entrez l'ID du lieu" prefWidth="400" />
+    </HBox>
+
+    <!-- User ID -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="ID de l'utilisateur :" />
+        <TextField fx:id="userIdField" promptText="Entrez l'ID de l'utilisateur" prefWidth="400" />
+    </HBox>
+
+    <!-- Atelier ID -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="ID de l'atelier :" />
+        <TextField fx:id="atelierIdField" promptText="Entrez l'ID de l'atelier" prefWidth="400" />
+    </HBox>
+
+    <!-- Boutons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Enregistrer" onAction="#handleSave" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+        <Button text="Annuler" onAction="#closeWindow" style="-fx-background-color: #f44336; -fx-text-fill: white;" />
+    </HBox>
+</VBox>
