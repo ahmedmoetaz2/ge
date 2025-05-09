@@ -1,0 +1,251 @@
+/* Variables globales pour la cohérence des couleurs */
+.root {
+    -primary-color: #3498db;
+    -primary-dark: #2980b9;
+    -secondary-color: #2ecc71;
+    -secondary-dark: #27ae60;
+    -tertiary-color: #e74c3c;
+    -neutral-bg: #e6f7ff;
+    -card-bg: white;
+    -text-primary: #2c3e50;
+    -text-secondary: #7f8c8d;
+    -border-light: #ecf0f1;
+    -fx-font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    -fx-background-color: #e6f7ff;
+}
+
+/* Optimisation des espacements au niveau global */
+#contentPane {
+    -fx-padding: 10;
+    -fx-background-color: -neutral-bg;
+}
+
+/* Dashboard content styles */
+#dashboardPane {
+    -fx-padding: 10;
+    -fx-spacing: 12;
+    -fx-background-color: -neutral-bg;
+}
+
+/* Stat Cards Styles avec design moderne */
+.stat-card {
+    -fx-background-color: -card-bg;
+    -fx-background-radius: 8;
+    -fx-padding: 12 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 3);
+    -fx-spacing: 4;
+    -fx-pref-width: 220;
+    -fx-min-height: 100;
+    -fx-border-width: 0 0 0 4;
+    -fx-border-radius: 0 0 0 8;
+    -fx-alignment: CENTER_LEFT;
+    -fx-cursor: hand;
+}
+
+.stat-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 6);
+    -fx-translate-y: -2;
+    -fx-opacity: 0.95;
+}
+
+/* Cartes avec des couleurs différentes */
+.stat-card:nth-child(1) {
+    -fx-border-color: -primary-color;
+}
+
+.stat-card:nth-child(2) {
+    -fx-border-color: -secondary-color;
+}
+
+.stat-card:nth-child(3) {
+    -fx-border-color: -tertiary-color;
+}
+
+.stat-title {
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -text-secondary;
+    -fx-padding: 0;
+    -fx-opacity: 0.9;
+}
+
+.stat-value {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-primary;
+    -fx-padding: 2 0;
+}
+
+.stat-change-positive {
+    -fx-text-fill: -secondary-color;
+    -fx-font-size: 13px;
+    -fx-padding: 4 8;
+    -fx-background-color: derive(-secondary-color, 85%);
+    -fx-background-radius: 12;
+    -fx-font-weight: bold;
+}
+
+.stat-change-negative {
+    -fx-text-fill: -tertiary-color;
+    -fx-font-size: 13px;
+    -fx-padding: 4 8;
+    -fx-background-color: derive(-tertiary-color, 85%);
+    -fx-background-radius: 12;
+    -fx-font-weight: bold;
+}
+
+.stat-change-neutral {
+    -fx-text-fill: #f39c12;
+    -fx-font-size: 13px;
+    -fx-padding: 4 8;
+    -fx-background-color: derive(#f39c12, 85%);
+    -fx-background-radius: 12;
+    -fx-font-weight: bold;
+}
+
+/* Carte de distribution */
+.distribution-card {
+    -fx-background-color: -card-bg;
+    -fx-background-radius: 8;
+    -fx-padding: 12 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 3);
+    -fx-spacing: 10;
+    -fx-pref-width: 320;
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: -primary-color;
+    -fx-border-radius: 0 0 8 8;
+}
+
+.distribution-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 6);
+    -fx-translate-y: -2;
+}
+
+.section-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-primary;
+    -fx-padding: 0 0 3 0;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: -border-light;
+}
+
+.distribution-list {
+    -fx-spacing: 6;
+    -fx-padding: 3 0;
+}
+
+.distribution-item {
+    -fx-spacing: 6;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 7;
+    -fx-background-radius: 8;
+    -fx-background-color: -neutral-bg;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.03), 3, 0, 0, 1);
+}
+
+.distribution-item:hover {
+    -fx-background-color: derive(-neutral-bg, -2%);
+    -fx-cursor: hand;
+}
+
+.city-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-primary;
+    -fx-min-width: 70px;
+    -fx-font-size: 14px;
+}
+
+.percentage-label {
+    -fx-text-fill: -primary-color;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 3 8;
+    -fx-background-color: derive(-primary-color, 90%);
+    -fx-background-radius: 12;
+}
+
+/* Table Card Styles */
+.table-card {
+    -fx-background-color: -card-bg;
+    -fx-background-radius: 8;
+    -fx-padding: 12 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 3);
+    -fx-spacing: 10;
+    -fx-border-width: 0 0 4 0;
+    -fx-border-color: -primary-dark;
+    -fx-border-radius: 0 0 8 8;
+}
+
+.table-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 5);
+    -fx-translate-y: -1;
+}
+
+/* TableView styles */
+.data-table {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-table-cell-border-color: transparent;
+}
+
+.table-column {
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-secondary;
+}
+
+.table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: -border-light;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8 0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: derive(-neutral-bg, 1%);
+}
+
+.table-row-cell:selected {
+    -fx-background-color: derive(-primary-color, 80%);
+}
+
+.table-view .column-header-background {
+    -fx-background-color: derive(-neutral-bg, -1%);
+    -fx-background-radius: 8 8 0 0;
+    -fx-padding: 8;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 40;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: -border-light;
+}
+
+.table-view .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+/* Styles pour les animations et transitions */
+.animated-card {
+    -fx-transition-duration: 0.3s;
+    -fx-transition-property: -fx-effect, -fx-translate-y;
+}
+
+/* Responsive HBox pour les cartes */
+HBox {
+    -fx-spacing: 10;
+    -fx-fill-height: true;
+    -fx-alignment: CENTER_LEFT;
+}
+.data-table .table-row-cell {
+    -fx-cell-size: 35px; /* Taille minimale des cellules */
+}
+
+.table-column {
+    -fx-font-size: 12px;
+    -fx-text-fill: -text-primary; /* Couleur visible */
+}

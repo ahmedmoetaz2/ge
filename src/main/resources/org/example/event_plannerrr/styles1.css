@@ -1,0 +1,127 @@
+/* Root & Background */
+.root {
+    -fx-font-family: "Arial", sans-serif;
+    -fx-background-color: #f5f7fa; /* Soft light gray for cleaner contrast */
+}
+
+/* Sidebar */
+.sidebar {
+    -fx-background-color: #1e4e5f; /* Deep teal to complement green/logo */
+    -fx-padding: 20px;
+    -fx-spacing: 15px;
+}
+
+.sidebar-logo {
+    -fx-fit-width: 150;
+    -fx-preserve-ratio: true;
+}
+
+.sidebar-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.sidebar-separator {
+    -fx-background-color: white;
+    -fx-padding: 1px;
+}
+
+.dashboard-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 15px;
+    -fx-cursor: hand;
+}
+
+.dashboard-btn:hover {
+    -fx-background-color: #2ecc71; /* Vibrant green hover for interactivity */
+}
+
+.quit-btn {
+    -fx-background-color: #e67e22; /* Warm orange for Logout (contrasts nicely with green) */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 15px;
+    -fx-cursor: hand;
+}
+
+.quit-btn:hover {
+    -fx-background-color: #d35400; /* Darker orange for hover */
+}
+
+/* Main Content */
+.content-area {
+    -fx-background-color: #ffffff; /* Clean white for focus */
+}
+
+.section-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #27ae60; /* Match logo’s green for consistency */
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 10px;
+}
+
+.cards-container {
+    -fx-background-color: #ecf0f1; /* Light gray-blue to complement teal accents */
+    -fx-padding: 10px;
+}
+
+/* Search Bar */
+.search-bar {
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #cccccc;
+    -fx-prompt-text-fill: #999999;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);
+}
+
+/* Bouton "Make Reservation" */
+.reservation-btn {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 8px 15px;
+    -fx-cursor: hand;
+}
+
+.reservation-btn:hover {
+    -fx-background-color: #219653;
+}
+
+/* Reservation Form */
+.form-container {
+    -fx-background-color: white;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.1), 10, 0, 0, 2);
+}
+
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+.text-field {
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #cccccc;
+    -fx-prompt-text-fill: #999999;
+}
+
+.combo-box {
+    -fx-font-size: 14px;
+    -fx-padding: 8px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: #cccccc;
+}

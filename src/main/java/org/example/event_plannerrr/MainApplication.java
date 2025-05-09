@@ -6,21 +6,35 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class MainApplication extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        // Charger le fichier FXML principal (event_List.fxml)
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/event_plannerrr/event_List.fxml"));
-        Parent root = loader.load();
+    public void start(Stage primaryStage) {
+        try {
+            // Load the main admin dashboard
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/event_plannerrr/EvenementManagement.fxml"));
+            Parent root = loader.load();
 
-        // Créer une scène avec la racine chargée depuis le FXML
-        Scene scene = new Scene(root, 800, 600);
+            Scene scene = new Scene(root);
+            primaryStage.setTitle("LifeLine - Admin Dashboard");
+            primaryStage.setScene(scene);
+            primaryStage.setMaximized(true);
+            primaryStage.show();
 
-        // Configurer la fenêtre principale
-        primaryStage.setTitle("Gestion des événements");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert(e);
+        }
+    }
+
+    private void showErrorAlert(Exception e) {
+        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+        alert.setTitle("Application Error");
+        alert.setHeaderText("Error Starting Application");
+        alert.setContentText("An error occurred while starting the application:\n" + e.getMessage());
+        alert.showAndWait();
     }
 
     public static void main(String[] args) {

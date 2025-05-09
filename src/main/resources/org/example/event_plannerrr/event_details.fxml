@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Controller.EventDetailsController"
+      spacing="15" alignment="TOP_CENTER"
+      style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 4);"
+      maxWidth="600" maxHeight="700">
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <!-- Event Image -->
+    <ImageView fx:id="eventImageView" fitWidth="400" fitHeight="250" preserveRatio="true"/>
+
+    <!-- Event Title -->
+    <Label fx:id="eventNameLabel" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: #0c3b8c;">
+        <font>
+            <Font name="System Bold" size="26"/>
+        </font>
+    </Label>
+
+    <!-- Event Details -->
+    <VBox spacing="10" style="-fx-background-color: #f5f7fa; -fx-background-radius: 5; -fx-padding: 15;">
+        <Label fx:id="eventCategoryLabel" style="-fx-font-size: 16px;"/>
+        <Label fx:id="eventPriceLabel" style="-fx-font-size: 16px;"/>
+        <Label fx:id="eventDateRangeLabel" style="-fx-font-size: 16px;"/>
+        <Label fx:id="eventLocationLabel" style="-fx-font-size: 16px;"/>
+        <Label fx:id="eventDescriptionLabel" style="-fx-font-size: 16px;" wrapText="true"/>
+        <Label fx:id="workshopsAvailableLabel" style="-fx-font-size: 16px;"/>
+        <Label fx:id="numberOfWorkshopsLabel" style="-fx-font-size: 16px;"/>
+    </VBox>
+
+    <!-- Action Buttons -->
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Modify" onAction="#modifyEvent"
+                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 5;"/>
+        <Button text="Delete" onAction="#deleteEvent"
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 5;"/>
+        <Button text="Close" onAction="#closeWindow"
+                style="-fx-background-color: #7f8c8d; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 5;"/>
+    </HBox>
+</VBox>

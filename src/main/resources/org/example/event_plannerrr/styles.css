@@ -1,0 +1,60 @@
+/* styles.css */
+.main-container {
+    -fx-background-color: #f4f4f4;
+}
+
+.header {
+    -fx-background-color: white;
+    -fx-border-color: #4CAF50;
+    -fx-border-width: 0 0 2px 0;
+}
+
+.search-field {
+    -fx-background-color: white;
+    -fx-border-color: #4CAF50;
+    -fx-border-width: 1px;
+    -fx-prompt-text-fill: #999;
+}
+
+.green-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.red-button {
+    -fx-background-color: #f44336;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.blue-button {
+    -fx-background-color: #2196F3;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.form-container {
+    -fx-background-color: white;
+}
+
+.detail-container {
+    -fx-background-color: white;
+}
+
+.detail-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4CAF50;
+}
+
+.detail-info {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333;
+}
+
+.description-area {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #ddd;
+    -fx-font-size: 14px;
+}

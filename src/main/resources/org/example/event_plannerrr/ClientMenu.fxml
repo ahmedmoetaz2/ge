@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.ClientMenuController" stylesheets="@styles1.css">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox fx:id="sidebar" spacing="15" styleClass="sidebar">
+            <padding>
+                <Insets bottom="25" left="15" right="15" top="25" />
+            </padding>
+
+            <ImageView fitWidth="150" preserveRatio="true" styleClass="sidebar-logo">
+                <image>
+                    <Image url="@../images/Logo.png" />
+                </image>
+            </ImageView>
+
+            <Separator styleClass="sidebar-separator" />
+
+            <Button text="Home" onAction="#showHome" styleClass="dashboard-btn" />
+            <Button text="Reservations" onAction="#showReservations" styleClass="dashboard-btn" />
+            <Button text="Calendar" onAction="#navigateToCalendar" styleClass="dashboard-btn" />
+            <Button text="Profile" onAction="#navigateToProfile" styleClass="dashboard-btn" />
+            <Button text="Help" onAction="#navigateToHelp" styleClass="dashboard-btn" />
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <Button text="Logout" onAction="#handleLogout" styleClass="quit-btn" />
+        </VBox>
+    </left>
+
+    <!-- Center Content (Dynamic) -->
+    <center>
+        <StackPane fx:id="centerContent" />
+    </center>
+</BorderPane>

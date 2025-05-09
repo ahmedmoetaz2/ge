@@ -8,27 +8,42 @@ public class MyDataBase {
     private static MyDataBase instance;
     private Connection cnx;
 
-    private static final String URL = "jdbc:mysql://localhost:3306/event planner?serverTimezone=UTC";
-    private static final String USER = "root"; // Remplacez par votre nom d'utilisateur MySQL
-    private static final String PASSWORD = ""; // Remplacez par votre mot de passe MySQL
+    // Database name: Use underscores, no spaces
+    private static final String URL = "jdbc:mysql://localhost:3306/event planner";
+    private static final String USER = "root";
+    private static final String PASSWORD = "";
 
     private MyDataBase() {
         try {
-            cnx = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Connexion à la base de données réussie !");
-        } catch (SQLException e) {
-            System.err.println("Erreur de connexion à la base de données : " + e.getMessage());
+            establishConnection();
+            System.out.println("Database connected!");
+        } catch (SQLException | ClassNotFoundException e) {
+            System.err.println("Database connection failed: " + e.getMessage());
+            throw new RuntimeException("Database initialization failed", e);
         }
     }
 
-    public static MyDataBase getInstance() {
+    public static synchronized MyDataBase getInstance() {
         if (instance == null) {
             instance = new MyDataBase();
         }
         return instance;
     }
 
-    public Connection getConnection() {
+    private void establishConnection() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        cnx = DriverManager.getConnection(URL, USER, PASSWORD);
+    }
+
+    public Connection getCnx() {
+        try {
+            if (cnx == null || cnx.isClosed()) {
+                System.out.println("Reconnecting...");
+                establishConnection();
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            System.err.println("Reconnection failed: " + e.getMessage());
+        }
         return cnx;
     }
 }

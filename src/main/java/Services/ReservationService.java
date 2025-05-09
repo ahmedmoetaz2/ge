@@ -1,7 +1,8 @@
 package Services;
 
-import Models.Reservation;
+import entities.Reservation;
 import Utils.MyDataBase;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,23 +11,12 @@ public class ReservationService {
     private final Connection cnx;
 
     public ReservationService() throws SQLException {
-        cnx = MyDataBase.getInstance().getConnection();
+        cnx = MyDataBase.getInstance().getCnx();
     }
 
     public void ajouter(Reservation r) throws SQLException {
-        // Vérification existence de l'événement
-        String checkSql = "SELECT id_event FROM evenement WHERE id_event = ?";
-        try (PreparedStatement checkStmt = cnx.prepareStatement(checkSql)) {
-            checkStmt.setInt(1, r.getEventId());
-            ResultSet rs = checkStmt.executeQuery();
-            if (!rs.next()) {
-                throw new SQLException("Événement non trouvé");
-            }
-        }
-
-        // Insertion de la réservation
-        String sql = "INSERT INTO reservation (event_id, workshops, nb_workshops, reservation_date, number_of_tickets, total_price, payment_method, payment_date) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO reservation (event_id, workshops, nb_workshops, reservation_date, number_of_tickets, total_price, payment_method, credit_card_number, payment_date) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pst = cnx.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pst.setInt(1, r.getEventId());
             pst.setString(2, r.getWorkshops());
@@ -35,7 +25,8 @@ public class ReservationService {
             pst.setInt(5, r.getNumberOfTickets());
             pst.setBigDecimal(6, r.getTotalPrice());
             pst.setString(7, r.getPaymentMethod());
-            pst.setTimestamp(8, r.getPaymentDate() != null ?
+            pst.setString(8, r.getCreditCardNumber()); // Numéro de carte bancaire
+            pst.setTimestamp(9, r.getPaymentDate() != null ?
                     Timestamp.valueOf(r.getPaymentDate()) : null);
 
             pst.executeUpdate();
@@ -50,7 +41,7 @@ public class ReservationService {
 
     public void modifier(Reservation r) throws SQLException {
         String sql = "UPDATE reservation SET event_id = ?, workshops = ?, nb_workshops = ?, reservation_date = ?, "
-                + "number_of_tickets = ?, total_price = ?, payment_method = ?, payment_date = ? "
+                + "number_of_tickets = ?, total_price = ?, payment_method = ?, credit_card_number = ?, payment_date = ? "
                 + "WHERE reservation_id = ?";
         try (PreparedStatement pst = cnx.prepareStatement(sql)) {
             pst.setInt(1, r.getEventId());
@@ -60,9 +51,10 @@ public class ReservationService {
             pst.setInt(5, r.getNumberOfTickets());
             pst.setBigDecimal(6, r.getTotalPrice());
             pst.setString(7, r.getPaymentMethod());
-            pst.setTimestamp(8, r.getPaymentDate() != null ?
+            pst.setString(8, r.getCreditCardNumber()); // Numéro de carte bancaire
+            pst.setTimestamp(9, r.getPaymentDate() != null ?
                     Timestamp.valueOf(r.getPaymentDate()) : null);
-            pst.setInt(9, r.getReservationId());
+            pst.setInt(10, r.getReservationId());
 
             pst.executeUpdate();
         }
@@ -91,6 +83,7 @@ public class ReservationService {
                         rs.getInt("number_of_tickets"),
                         rs.getBigDecimal("total_price"),
                         rs.getString("payment_method"),
+                        rs.getString("credit_card_number"), // Numéro de carte bancaire
                         rs.getTimestamp("payment_date") != null ?
                                 rs.getTimestamp("payment_date").toLocalDateTime() : null
                 );

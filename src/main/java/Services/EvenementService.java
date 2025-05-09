@@ -1,101 +1,162 @@
 package Services;
 
-import Models.Evenement;
 import Utils.MyDataBase;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import entities.Evenement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EvenementService {
-    private Connection cnx;
+
+    private Connection connection;
 
     public EvenementService() {
-        this.cnx = MyDataBase.getInstance().getConnection();
-        if (this.cnx == null) {
-            throw new RuntimeException("La connexion à la base de données est nulle !");
+        // Use the singleton database connection
+        this.connection = MyDataBase.getInstance().getCnx();
+        if (this.connection == null) {
+            throw new RuntimeException("Failed to initialize database connection!");
         }
     }
 
-    // Méthode pour ajouter un événement
-    public void ajouter(Evenement event) throws SQLException {
-        String query = "INSERT INTO evenement (nameEvent, categorieEvent, description, price, dateD, dateF, lieuId, userId, atelierId, workshopsAvailable, numberOfWorkshop) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement ps = cnx.prepareStatement(query)) {
-            ps.setString(1, event.getNameEvent());
-            ps.setString(2, event.getCategorieEvent());
-            ps.setString(3, event.getDescription());
-            ps.setFloat(4, event.getPrice());
-            ps.setDate(5, java.sql.Date.valueOf(event.getDateD()));
-            ps.setDate(6, java.sql.Date.valueOf(event.getDateF()));
-            ps.setInt(7, event.getLieuId());
-            ps.setInt(8, event.getUserId());
-            ps.setInt(9, event.getAtelierId());
-            ps.setString(10, event.getWorkshopsAvailable());
-            ps.setInt(11, event.getNumberOfWorkshop());
-
-            ps.executeUpdate();
-        }
-    }
-
-    // Méthode pour modifier un événement
-    public void modifier(Evenement event) throws SQLException {
-        String query = "UPDATE evenement SET nameEvent = ?, categorieEvent = ?, description = ?, price = ?, dateD = ?, dateF = ?, lieuId = ?, userId = ?, atelierId = ?, workshopsAvailable = ?, numberOfWorkshop = ? WHERE idEvent = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(query)) {
-            ps.setString(1, event.getNameEvent());
-            ps.setString(2, event.getCategorieEvent());
-            ps.setString(3, event.getDescription());
-            ps.setFloat(4, event.getPrice());
-            ps.setDate(5, java.sql.Date.valueOf(event.getDateD()));
-            ps.setDate(6, java.sql.Date.valueOf(event.getDateF()));
-            ps.setInt(7, event.getLieuId());
-            ps.setInt(8, event.getUserId());
-            ps.setInt(9, event.getAtelierId());
-            ps.setString(10, event.getWorkshopsAvailable());
-            ps.setInt(11, event.getNumberOfWorkshop());
-            ps.setInt(12, event.getIdEvent());
-
-            ps.executeUpdate();
-        }
-    }
-
-    // Méthode pour supprimer un événement
-    public void supprimer(Evenement event) throws SQLException {
-        String query = "DELETE FROM evenement WHERE idEvent = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(query)) {
-            ps.setInt(1, event.getIdEvent());
-            ps.executeUpdate();
-        }
-    }
-
-    // Méthode pour afficher tous les événements
-    public List<Evenement> afficher() throws SQLException {
-        List<Evenement> evenements = new ArrayList<>();
-        String query = "SELECT * FROM evenement";
-
-        try (PreparedStatement ps = cnx.prepareStatement(query);
-             ResultSet rs = ps.executeQuery()) {
-
+    // Récupérer tous les événements
+    public List<Evenement> getAll() throws SQLException {
+        List<Evenement> events = new ArrayList<>();
+        String query = "SELECT * FROM evenements";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Evenement event = new Evenement(
+                events.add(new Evenement(
                         rs.getInt("idEvent"),
                         rs.getString("nameEvent"),
                         rs.getString("categorieEvent"),
+                        rs.getString("workshopsAvailable"),
+                        rs.getInt("numberOfWorkshop"),
                         rs.getString("description"),
                         rs.getFloat("price"),
+                        rs.getString("lieuName"),
                         rs.getDate("dateD").toLocalDate(),
                         rs.getDate("dateF").toLocalDate(),
-                        rs.getInt("lieuId"),
-                        rs.getInt("userId"),
+                        rs.getInt("lieuld"),
+                        rs.getInt("userid"),
                         rs.getInt("atelierId"),
-                        rs.getString("workshopsAvailable"),
-                        rs.getInt("numberOfWorkshop")
-                );
-                evenements.add(event);
+                        rs.getString("imagePath")
+                ));
             }
         }
-        return evenements;
+        return events;
+    }
+
+    // Ajouter un événement
+    public void add(Evenement event) throws SQLException {
+        String query = "INSERT INTO evenements (nameEvent, categorieEvent, workshopsAvailable, numberOfWorkshop, description, price, lieuName, dateD, dateF, lieuld, userid, atelierId, imagePath) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, event.getNameEvent());
+            stmt.setString(2, event.getCategorieEvent());
+            stmt.setString(3, event.getWorkshopsAvailable());
+            stmt.setInt(4, event.getNumberOfWorkshop());
+            stmt.setString(5, event.getDescription());
+            stmt.setFloat(6, event.getPrice());
+            stmt.setString(7, event.getLieuName());
+            stmt.setDate(8, Date.valueOf(event.getDateD()));
+            stmt.setDate(9, Date.valueOf(event.getDateF()));
+            stmt.setInt(10, event.getLieuld());
+            stmt.setInt(11, event.getUserid());
+            stmt.setInt(12, event.getAtelierId());
+            stmt.setString(13, event.getImagePath());
+            stmt.executeUpdate();
+        }
+    }
+
+    // Mettre à jour un événement
+    public void update(Evenement event) throws SQLException {
+        String query = "UPDATE evenements SET nameEvent = ?, categorieEvent = ?, workshopsAvailable = ?, numberOfWorkshop = ?, description = ?, price = ?, lieuName = ?, dateD = ?, dateF = ?, lieuld = ?, userid = ?, atelierId = ?, imagePath = ? WHERE idEvent = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setString(1, event.getNameEvent());
+            stmt.setString(2, event.getCategorieEvent());
+            stmt.setString(3, event.getWorkshopsAvailable());
+            stmt.setInt(4, event.getNumberOfWorkshop());
+            stmt.setString(5, event.getDescription());
+            stmt.setFloat(6, event.getPrice());
+            stmt.setString(7, event.getLieuName());
+            stmt.setDate(8, Date.valueOf(event.getDateD()));
+            stmt.setDate(9, Date.valueOf(event.getDateF()));
+            stmt.setInt(10, event.getLieuld());
+            stmt.setInt(11, event.getUserid());
+            stmt.setInt(12, event.getAtelierId());
+            stmt.setString(13, event.getImagePath());
+            stmt.setInt(14, event.getIdEvent());
+            stmt.executeUpdate();
+        }
+    }
+
+    // Supprimer un événement
+    public void delete(Integer eventId) throws SQLException {
+        String query = "DELETE FROM evenements WHERE idEvent = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, eventId);
+            stmt.executeUpdate();
+        }
+    }
+
+    // Supprimer un événement (surcharge avec objet Evenement)
+    public void delete(Evenement event) throws SQLException {
+        delete(event.getIdEvent());
+    }
+
+    // Rechercher des événements par nom
+    public List<Evenement> searchByName(String query) throws SQLException {
+        List<Evenement> events = new ArrayList<>();
+        String sql = "SELECT * FROM evenements WHERE nameEvent LIKE ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, "%" + query + "%");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                events.add(new Evenement(
+                        rs.getInt("idEvent"),
+                        rs.getString("nameEvent"),
+                        rs.getString("categorieEvent"),
+                        rs.getString("workshopsAvailable"),
+                        rs.getInt("numberOfWorkshop"),
+                        rs.getString("description"),
+                        rs.getFloat("price"),
+                        rs.getString("lieuName"),
+                        rs.getDate("dateD").toLocalDate(),
+                        rs.getDate("dateF").toLocalDate(),
+                        rs.getInt("lieuld"),
+                        rs.getInt("userid"),
+                        rs.getInt("atelierId"),
+                        rs.getString("imagePath")
+                ));
+            }
+        }
+        return events;
+    }
+
+    // Trouver un événement par ID
+    public Evenement findById(Integer eventId) throws SQLException {
+        String query = "SELECT * FROM evenements WHERE idEvent = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, eventId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Evenement(
+                        rs.getInt("idEvent"),
+                        rs.getString("nameEvent"),
+                        rs.getString("categorieEvent"),
+                        rs.getString("workshopsAvailable"),
+                        rs.getInt("numberOfWorkshop"),
+                        rs.getString("description"),
+                        rs.getFloat("price"),
+                        rs.getString("lieuName"),
+                        rs.getDate("dateD").toLocalDate(),
+                        rs.getDate("dateF").toLocalDate(),
+                        rs.getInt("lieuld"),
+                        rs.getInt("userid"),
+                        rs.getInt("atelierId"),
+                        rs.getString("imagePath")
+                );
+            }
+        }
+        return null;
     }
 }
